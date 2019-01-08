@@ -1,2 +1,5 @@
 matplotlib>=2.0.0
+# Must be removed when #710 is fixed on nibabel
+nibabel==2.3.1; python_version < '3.0'
+nibabel>=2.3.1; python_version > '3.0'
 dipy
