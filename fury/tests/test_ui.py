@@ -897,7 +897,6 @@ def test_ui_file_menu_2d(interactive=False):
         show_manager.start()
 
 
-@npt.dec.skipif(skip_it)
 @xvfb_it
 def test_grid_ui(interactive=False):
 

@@ -192,7 +192,6 @@ def test_surface():
                 npt.assert_equal(report.objects, 1)
 
 
-@npt.dec.skipif(skip_it)
 @xvfb_it
 def test_contour_from_roi():
 
@@ -819,7 +818,6 @@ def test_spheres(interactive=False):
     npt.assert_equal(report.objects, 3)
 
 
-@npt.dec.skipif(skip_it)
 @xvfb_it
 def test_grid(_interactive=False):
 
