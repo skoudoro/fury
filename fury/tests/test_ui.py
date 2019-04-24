@@ -7,8 +7,7 @@ from os.path import join as pjoin
 import numpy.testing as npt
 
 from fury.data import read_viz_icons, fetch_viz_icons
-from fury import ui
-from fury import window, actor
+from fury import window, actor, ui
 from fury.data import DATA_DIR
 from fury.decorators import xvfb_it
 from fury.testing import assert_arrays_equal
@@ -73,43 +72,6 @@ class EventCounter(object):
         for event, count in expected.events_counts.items():
             npt.assert_equal(self.events_counts[event], count,
                              err_msg=msg.format(event))
-
-
-@xvfb_it
-def test_broken_ui_component():
-    class SimplestUI(ui.UI):
-        def __init__(self):
-            super(SimplestUI, self).__init__()
-
-        def _setup(self):
-            self.actor = vtk.vtkActor2D()
-
-        def _set_position(self, coords):
-            self.actor.SetPosition(*coords)
-
-        def _get_size(self):
-            return
-
-        def _get_actors(self):
-            return [self.actor]
-
-        def _add_to_scene(self, scene):
-            scene.add(self.actor)
-
-    # Can be instantiated.
-    SimplestUI()
-
-    # Instantiating UI subclasses that don't override all abstract methods.
-    for attr in ["_setup", "_set_position"]:
-        bkp = getattr(SimplestUI, attr)
-        delattr(SimplestUI, attr)
-        npt.assert_raises(NotImplementedError, SimplestUI)
-        setattr(SimplestUI, attr, bkp)
-
-    simple_ui = SimplestUI()
-    npt.assert_raises(NotImplementedError, getattr, simple_ui, 'actors')
-    npt.assert_raises(NotImplementedError, getattr, simple_ui, 'size')
-    npt.assert_raises(NotImplementedError, getattr, simple_ui, 'center')
 
 
 @xvfb_it
