@@ -77,7 +77,7 @@ class EventCounter(object):
 
 @xvfb_it
 def test_broken_ui_component():
-    class SimplestUI(UI):
+    class SimplestUI(ui.UI):
         def __init__(self):
             super(SimplestUI, self).__init__()
 
@@ -86,6 +86,15 @@ def test_broken_ui_component():
 
         def _set_position(self, coords):
             self.actor.SetPosition(*coords)
+
+        def _get_size(self):
+            return
+
+        def _get_actors(self):
+            return [self.actor]
+
+        def _add_to_scene(self, scene):
+            scene.add(self.actor)
 
     # Can be instantiated.
     SimplestUI()
