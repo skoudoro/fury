@@ -634,8 +634,11 @@ class ShowManager(object):
         else:
             timer_id = self.iren.CreateOneShotTimer(duration)
         self.timers.append(timer_id)
+        return timer_id
 
     def destroy_timer(self, timer_id):
+        if timer_id not in self.timers:
+            return
         self.iren.DestroyTimer(timer_id)
         del self.timers[self.timers.index(timer_id)]
 
