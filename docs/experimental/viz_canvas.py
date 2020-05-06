@@ -295,6 +295,7 @@ vec3 calcNormal( in vec3 pos )
 
     // create view ray
     vec3 rd = normalize( point.x*-uu + point.y*-vv + 7*ww);
+    //vec3 rd = normalize(point - ro);
     vec3 col = vec3(0.0);
 
     float t = castRay(ro, rd);

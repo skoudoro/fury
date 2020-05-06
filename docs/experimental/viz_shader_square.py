@@ -166,7 +166,7 @@ mapper.AddShaderReplacement(
 
     vec2 p = tmp.xy;
 
-    p = p - vec2(time * 0.005, 0.);
+    //p = p - vec2(time * 0.005, 0.);
 
     if (length(p - vec2(0, 0)) < 0.2) {
         fragOutput0 = vec4(1, 0., 0., .5);
