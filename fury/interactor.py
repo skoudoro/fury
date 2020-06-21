@@ -397,3 +397,23 @@ class CustomInteractorStyle(vtk.vtkInteractorStyleUser):
             event_type = self.event2id[event_type]
 
         prop.AddObserver(event_type, _callback, priority)
+        class l_callback(object):
+            def __init__(self, iren, prop, callback, args=[]):
+                self.iren = iren
+                self.prop = prop
+                self.callback = callback
+                self.args = args
+
+            def __call__(self, _obj, event_name):
+                # Update event information.
+                interactor_ = self.iren.GetInteractor()
+                if interactor_ is not None:
+                    self.iren.event.update(event_name, interactor_)
+                    self.callback(self.iren, self.prop, *self.args)
+                else:
+                    print('interactor is none')
+                    print('event name is', event_name)
+
+        cbk = l_callback(self, prop, callback, args)
+        prop.AddObserver(event_type, cbk, priority)
+        return
