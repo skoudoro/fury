@@ -1,8 +1,10 @@
 import vtk
 from vtk.util import numpy_support
 from fury import enable_warnings
+from packaging.version import parse as version_cmp
 
-VTK_9_PLUS = vtk.vtkVersion.GetVTKMajorVersion() >= 9
+# VTK 8.90 is not an official release but used in many container
+VTK_9_PLUS = version_cmp(vtk.vtkVersion.GetVTKVersion()) >= version_cmp('8.90')
 SHADERS_TYPE = {"vertex": vtk.vtkShader.Vertex,
                 "geometry": vtk.vtkShader.Geometry,
                 "fragment": vtk.vtkShader.Fragment,
