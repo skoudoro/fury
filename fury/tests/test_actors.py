@@ -1294,6 +1294,7 @@ def test_matplotlib_figure():
     display = window.snapshot(scene, 'test_mpl.png')
     # Get unique colors to debug
     # np.unique(display.reshape(-1, display.shape[2]), axis=0)
+
     res = window.analyze_snapshot(display, bg_color=(255, 255, 255.),
                                   colors=[(31, 119, 180), (255, 0, 0)],
                                   find_objects=False)
