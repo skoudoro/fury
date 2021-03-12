@@ -118,9 +118,14 @@ jobs:
     - name: Install FURY and Test it!
       run: |
         bash ci/travis/script.sh
-    - name: Setup tmate session
-      if: ${{ failure() }}
-      uses: mxschmitt/action-tmate@v3
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v2
+      with:
+        name: code-coverage-report
+        path: for_testing/*
+    # - name: Setup tmate session
+    #   if: ${{ failure() }}
+    #   uses: mxschmitt/action-tmate@v3
     - name: Deploy docs
       if: success() && github.ref == 'refs/heads/master'
       run: |
