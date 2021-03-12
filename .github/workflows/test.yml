@@ -110,7 +110,7 @@ jobs:
     - name: Start Xvfb
       if: startsWith(matrix.os,'ubuntu')
       run: |
-        sudo apt-get install libgl1-mesa-dev mesa-utils xvfb
+        sudo apt-get install libgl1-mesa-dev mesa-utils fim xvfb
         Xvfb :99 +extension GLX -screen 0 1024x768x24 2>&1 >/dev/null &
     - name: Install dependencies
       run: |

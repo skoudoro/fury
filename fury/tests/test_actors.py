@@ -1275,7 +1275,7 @@ def test_matplotlib_figure():
     plt.plot(names, values)
     plt.suptitle('Categorical Plotting')
 
-    arr = matplotlib_figure_to_numpy(fig, dpi=500, transparent=True)
+    arr = matplotlib_figure_to_numpy(fig, dpi=500)
     plt.close('all')
     fig_actor = actor.figure(arr, 'cubic')
     fig_actor2 = actor.figure(arr, 'cubic')
@@ -1287,11 +1287,13 @@ def test_matplotlib_figure():
     scene.add(fig_actor)
     scene.add(fig_actor2)
 
-    ax_actor.SetPosition(-50, 500, -800)
-    fig_actor2.SetPosition(500, 800, -400)
+    ax_actor.SetPosition(-1500, 500, -800)
+    fig_actor2.SetPosition(1500, 800, -400)
+    # window.show(scene)
     # import ipdb; ipdb.set_trace()
-    display = window.snapshot(scene, 'test_mpl.png', order_transparent=False,
-                              offscreen=True)
+    display = window.snapshot(scene, 'test_mpl.png')
+    # Get unique colors to debug
+    # np.unique(display.reshape(-1, display.shape[2]), axis=0)
     res = window.analyze_snapshot(display, bg_color=(255, 255, 255.),
                                   colors=[(31, 119, 180), (255, 0, 0)],
                                   find_objects=False)
