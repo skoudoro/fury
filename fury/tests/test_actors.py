@@ -1240,23 +1240,23 @@ def test_texture_mapping():
     npt.assert_equal(res.colors_found, [True, True])
 
 
-def test_figure_vs_texture_actor():
+# def test_figure_vs_texture_actor():
 
-    arr = (255 * np.ones((512, 212, 4))).astype('uint8')
+#     arr = (255 * np.ones((512, 212, 4))).astype('uint8')
 
-    arr[20:40, 20:40, 3] = 0
-    tp = actor.figure(arr)
-    arr[20:40, 20:40, :] = np.array([255, 0, 0, 255], dtype='uint8')
-    tp2 = actor.texture(arr)
-    scene = window.Scene()
-    scene.add(tp)
-    scene.add(tp2)
-    tp2.SetPosition(0, 0, -50)
-    display = window.snapshot(scene)
-    res = window.analyze_snapshot(display, bg_color=(0, 0, 0),
-                                  colors=[(255, 0, 0), (255, 255, 255)],
-                                  find_objects=False)
-    npt.assert_equal(res.colors_found, [True, True])
+#     arr[20:40, 20:40, 3] = 0
+#     tp = actor.figure(arr)
+#     arr[20:40, 20:40, :] = np.array([255, 0, 0, 255], dtype='uint8')
+#     tp2 = actor.texture(arr)
+#     scene = window.Scene()
+#     scene.add(tp)
+#     scene.add(tp2)
+#     tp2.SetPosition(0, 0, -50)
+#     display = window.snapshot(scene)
+#     res = window.analyze_snapshot(display, bg_color=(0, 0, 0),
+#                                   colors=[(255, 0, 0), (255, 255, 255)],
+#                                   find_objects=False)
+#     npt.assert_equal(res.colors_found, [True, True])
 
 
 @pytest.mark.skipif(not have_matplotlib, reason="Requires MatplotLib")
