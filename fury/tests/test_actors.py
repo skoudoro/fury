@@ -1,6 +1,6 @@
 import os
 import itertools
-from tempfile import mkstemp, TemporaryDirectory as InTemporaryDirectory
+from tempfile import TemporaryDirectory as InTemporaryDirectory
 
 import pytest
 import numpy as np
@@ -13,7 +13,6 @@ from fury.actor import grid
 from fury.decorators import skip_osx, skip_win
 from fury.utils import shallow_copy, rotate
 from fury.testing import assert_greater, assert_greater_equal
-from fury.primitive import prim_sphere
 
 # Allow import, but disable doctests if we don't have dipy
 from fury.optpkg import optional_package
@@ -1177,6 +1176,7 @@ def test_grid(_interactive=False):
     show_m.start()
 
     arr = window.snapshot(scene)
+    arr[arr < 20] = 0
     report = window.analyze_snapshot(arr)
     npt.assert_equal(report.objects, 6)
 
@@ -1276,6 +1276,7 @@ def test_matplotlib_figure():
     plt.suptitle('Categorical Plotting')
 
     arr = matplotlib_figure_to_numpy(fig, dpi=500, transparent=True)
+    plt.close('all')
     fig_actor = actor.figure(arr, 'cubic')
     fig_actor2 = actor.figure(arr, 'cubic')
     scene = window.Scene()
@@ -1285,8 +1286,10 @@ def test_matplotlib_figure():
     scene.add(ax_actor)
     scene.add(fig_actor)
     scene.add(fig_actor2)
-    ax_actor.SetPosition(0, 500, -800)
+
+    ax_actor.SetPosition(-50, 500, -800)
     fig_actor2.SetPosition(500, 800, -400)
+    # import ipdb; ipdb.set_trace()
     display = window.snapshot(scene, 'test_mpl.png', order_transparent=False,
                               offscreen=True)
     res = window.analyze_snapshot(display, bg_color=(255, 255, 255.),
@@ -1294,6 +1297,7 @@ def test_matplotlib_figure():
                                   find_objects=False)
     npt.assert_equal(res.colors_found, [True, True])
 
+# test_matplotlib_figure()
 
 def test_superquadric_actor(interactive=False):
     scene = window.Scene()
